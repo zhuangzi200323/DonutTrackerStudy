@@ -1,5 +1,10 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
+    //id 'kotlin-android-extensions'
+    //id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
+    //id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -13,8 +18,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //指定room.schemaLocation生成的文件路径
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
-
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -39,4 +53,16 @@ dependencies {
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+    def archLifecycleVersion = '2.3.1'
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.30"
+    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$archLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion"
+    def navigationVersion = '2.3.5'
+    implementation "androidx.navigation:navigation-ui:$navigationVersion"
+    def datastoreVersion = "1.0.0"
+    implementation "androidx.datastore:datastore-preferences:$datastoreVersion"
+//    def roomVersion = '2.2.5'
+//    implementation "androidx.room:room-ktx:$roomVersion"
 }
